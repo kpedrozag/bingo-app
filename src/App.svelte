@@ -1,30 +1,125 @@
 <script>
-	export let name;
+  const lettersIndex = ['B', 'I', 'N', 'G', 'O'];
+  const letterNumbersRelation = [];
+  for (let i = 0; i < 5; i++) {
+    const tempRow = [];
+    for (let j = i * 15 + 1; j <= (i + 1) * 15; j++) {
+      tempRow.push({
+        number: j,
+        taken: false,
+        stringNumber: j < 10 ? `0${j}` : `${j}`
+      });
+    }
+    letterNumbersRelation.push(tempRow);
+  }
+  let letter = lettersIndex[0],
+    firstDigit = 0,
+    secondDigit = 0;
+
+  let numbersSorted = 0;
+  let disableButton = false;
+
+  function handleRunButtonClick() {
+    while (true) {
+      let letterIndex = Math.floor(Math.random() * 5);
+      if (letterIndex > 4) {
+        letterIndex = 4;
+      }
+      letter = lettersIndex[letterIndex];
+
+      const numbersListToShuffle = letterNumbersRelation[letterIndex];
+
+      const maxNumber = numbersListToShuffle[14].number + 1,
+        minNumber = numbersListToShuffle[0].number;
+
+      const randomNumber = Math.floor(Math.random() * (maxNumber - minNumber)) + minNumber;
+
+      const numberIndex = randomNumber % 15;
+
+      const randomDumberData = numbersListToShuffle[numberIndex];
+
+      const { stringNumber, taken } = randomDumberData;
+      if (taken) {
+        continue;
+      }
+      firstDigit = stringNumber[0];
+      secondDigit = stringNumber[1];
+
+      letterNumbersRelation[letterIndex][numberIndex].taken = true;
+      numbersSorted += 1;
+			if (numbersSorted === 75) {
+          disableButton = true;
+          break;
+        }
+      break;
+    }
+  }
+
+  function handleResetClick() {
+    location.reload();
+  }
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+  <h1>Bingo</h1>
+  <div class="current-values-container">
+    <span>{letter}</span>
+    <span>{firstDigit}</span>
+    <span>{secondDigit}</span>
+  </div>
+  <button id="run" on:click={handleRunButtonClick} disabled={disableButton}>
+    <p>Sortear numeros</p>
+  </button>
+  <table>
+    {#each letterNumbersRelation as row, index}
+      <tr>
+        <td>
+          <b>{lettersIndex[index]}</b>
+        </td>
+        {#each row as { number, taken }}
+          <td class={taken ? 'taken' : ''}>
+            {number}
+          </td>
+        {/each}
+      </tr>
+    {/each}
+  </table>
+  {#if disableButton}
+    <button on:click={handleResetClick}> Reset </button>
+  {/if}
 </main>
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
+  main {
+    text-align: center;
+  }
+  div.current-values-container > span {
+    font-size: 200px;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 0px 30px 0px 30px;
+    background-color: #59dab5;
+  }
+  div.current-values-container > span:nth-child(n + 2) {
+    margin-left: 50px;
+  }
+  button {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 20px;
+  }
+  table {
+    border: 1px solid black;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  table td {
+    padding: 10px;
+    font-size: 30px;
+  }
+  table td.taken {
+    background-color: #bfda26;
+  }
 </style>
