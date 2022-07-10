@@ -79,7 +79,6 @@
 
 <main>
   <h1>Carton de bingo</h1>
-  <h2>Testing CD again</h2>
   <button on:click={handleClickGenerateBoard} disabled={boardGenerated}>Generar carton</button>
   {#if boardGenerated}
     <div class="board-container">
