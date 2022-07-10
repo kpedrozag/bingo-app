@@ -62,7 +62,6 @@
 
 <main>
   <h1>Bingo</h1>
-  <h2>Testing CD</h2>
   <div class="current-values-container">
     <span>{letter}</span>
     <span>{firstDigit}</span>
