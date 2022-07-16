@@ -19,6 +19,8 @@
   let numbersSorted = 0;
   let disableButton = false;
 
+  let valuesSorted = [];
+
   function handleRunButtonClick() {
     while (true) {
       let letterIndex = Math.floor(Math.random() * 5);
@@ -45,12 +47,14 @@
       firstDigit = stringNumber[0];
       secondDigit = stringNumber[1];
 
+      valuesSorted = [...valuesSorted, `${letter} ${stringNumber}`];
+
       letterNumbersRelation[letterIndex][numberIndex].taken = true;
       numbersSorted += 1;
-			if (numbersSorted === 75) {
-          disableButton = true;
-          break;
-        }
+      if (numbersSorted === 75) {
+        disableButton = true;
+        break;
+      }
       break;
     }
   }
@@ -87,6 +91,19 @@
   {#if disableButton}
     <button on:click={handleResetClick}> Reset </button>
   {/if}
+  <div class="history">
+    <br/>
+    <h2>Ultimos 10 numeros</h2>
+    <table>
+      {#each valuesSorted.slice(-10).reverse() as val, index}
+        <tr>
+          <td>
+            {val}
+          </td>
+        </tr>
+      {/each}
+    </table>
+  </div>
 </main>
 
 <style>
