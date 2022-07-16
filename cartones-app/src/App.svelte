@@ -71,9 +71,17 @@
     location.reload();
   }
 
+  let lastPosClicked = [];
+
   function handleClickNumber(posI, posJ) {
-    console.log({ posI, posJ });
-		boardElements[posI][posJ].className = 'taken'
+    lastPosClicked = [posI, posJ];
+    boardElements[posI][posJ].className = 'taken';
+  }
+
+  function handleClickUndoLastNumber() {
+    const [lastPosI,lastPosJ] = lastPosClicked;
+    boardElements[lastPosI][lastPosJ].className = 'number';
+    lastPosClicked = []
   }
 </script>
 
@@ -103,6 +111,11 @@
       </table>
     </div>
     <button class="reset-button" on:click={handleResetClick}>Reset</button>
+  {/if}
+
+  {#if lastPosClicked.length > 0}
+    <br />
+    <button on:click={handleClickUndoLastNumber}>Deshacer ultimo numero</button>
   {/if}
 </main>
 
