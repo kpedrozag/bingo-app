@@ -92,7 +92,7 @@
     <button on:click={handleResetClick}> Reset </button>
   {/if}
   <div class="history">
-    <br/>
+    <br />
     <h2>Ultimos 10 numeros</h2>
     <table>
       {#each valuesSorted.slice(-10).reverse() as val, index}
@@ -109,6 +109,10 @@
 <style>
   main {
     text-align: center;
+  }
+  div.current-values-container {
+    display: flex;
+    justify-content: center;
   }
   div.current-values-container > span {
     font-size: 200px;
@@ -138,5 +142,23 @@
   }
   table td.taken {
     background-color: #bfda26;
+  }
+
+  @media (max-width: 673px) {
+    div.current-values-container > span {
+      font-size: 150px;
+    }
+    div.current-values-container > span:nth-child(n + 2) {
+      margin-left: 5px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    div.current-values-container > span {
+      font-size: 100px;
+    }
+    div.current-values-container > span:nth-child(n + 2) {
+      margin-left: 1px;
+    }
   }
 </style>
