@@ -133,8 +133,6 @@
 <style>
   main {
     text-align: center;
-    padding: 1em;
-    max-width: 240px;
     margin: 0 auto;
   }
   h1 {
@@ -168,11 +166,5 @@
   }
   .clean-button {
     margin-left: 15px;
-  }
-
-  @media (min-width: 640px) {
-    main {
-      max-width: none;
-    }
   }
 </style>
