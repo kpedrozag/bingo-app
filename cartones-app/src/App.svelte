@@ -7,7 +7,6 @@
     let board = {};
     for (let i = 0; i < lettersIndex.length; i++) {
       const temporalColumn = [];
-      // const columnLength = lettersIndex[i] === 'N' ? 4 : 5;
       const columnLength = 5;
       while (true) {
         if (temporalColumn.length === columnLength) {
@@ -79,9 +78,20 @@
   }
 
   function handleClickUndoLastNumber() {
-    const [lastPosI,lastPosJ] = lastPosClicked;
+    const [lastPosI, lastPosJ] = lastPosClicked;
     boardElements[lastPosI][lastPosJ].className = 'number';
-    lastPosClicked = []
+    lastPosClicked = [];
+  }
+
+  function handleCleanClick() {
+    for (let i = 1; i < boardElements.length; i++) {
+      for (let j = 0; j < boardElements[i].length; j++) {
+        if (boardElements[i][j].className === 'taken') {
+          boardElements[i][j].className = 'number';
+        }
+      }
+    }
+    lastPosClicked = [];
   }
 </script>
 
@@ -110,7 +120,8 @@
         {/each}
       </table>
     </div>
-    <button class="reset-button" on:click={handleResetClick}>Reset</button>
+    <button class="reset-button" on:click={handleResetClick}>New board</button>
+    <button class="clean-button" on:click={handleCleanClick}>Clean board</button>
   {/if}
 
   {#if lastPosClicked.length > 0}
@@ -154,6 +165,9 @@
 
   .reset-button {
     margin-top: 25px;
+  }
+  .clean-button {
+    margin-left: 15px;
   }
 
   @media (min-width: 640px) {
