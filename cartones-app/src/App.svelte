@@ -96,8 +96,8 @@
 </script>
 
 <main>
-  <h1>Carton de bingo</h1>
-  <button on:click={handleClickGenerateBoard} disabled={boardGenerated}>Generar carton</button>
+  <h1>Carton de bingo /<br/>Bingo Cards</h1>
+  <button on:click={handleClickGenerateBoard} disabled={boardGenerated}>Generar carton/Generate card</button>
   {#if boardGenerated}
     <div class="board-container">
       <table>
@@ -120,13 +120,13 @@
         {/each}
       </table>
     </div>
-    <button class="reset-button" on:click={handleResetClick}>New board</button>
-    <button class="clean-button" on:click={handleCleanClick}>Clean board</button>
+    <button class="reset-button" on:click={handleResetClick}>Nuevo carton/New board</button>
+    <button class="clean-button" on:click={handleCleanClick}>Limpiar carton/Clean board</button>
   {/if}
 
   {#if lastPosClicked.length > 0}
     <br />
-    <button on:click={handleClickUndoLastNumber}>Deshacer ultimo numero</button>
+    <button on:click={handleClickUndoLastNumber}>Deshacer ultimo numero/Undo last clicked number</button>
   {/if}
 </main>
 
