@@ -72,7 +72,7 @@
     <span>{secondDigit}</span>
   </div>
   <button id="run" on:click={handleRunButtonClick} disabled={disableButton}>
-    <p>Sortear numeros</p>
+    <p>Sortear numeros / Get a random number</p>
   </button>
   <table>
     {#each letterNumbersRelation as row, index}
@@ -93,7 +93,7 @@
   {/if}
   <div class="history">
     <br />
-    <h2>Ultimos 10 numeros</h2>
+    <h2>Ultimos 10 numeros / Last 10 numbers</h2>
     <table>
       {#each valuesSorted.slice(-10).reverse() as val, index}
         <tr>
